@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @thing.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @thing.description %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @thing.creator_id %>
+</p>
+
+<p>
+  <strong>Creator type:</strong>
+  <%= @thing.creator_type %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @thing.type_id %>
+</p>
+
+<%= link_to 'Edit', edit_thing_path(@thing) %> |
+<%= link_to 'Back', things_path %>
