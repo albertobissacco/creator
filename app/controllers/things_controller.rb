@@ -79,6 +79,6 @@ class ThingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def thing_params
-      params.require(:thing).permit(:name, :description, :creator_id, :type_id, :piggybak_sellable_attributes)
+      params.require(:thing).permit(:name, :description, :creator_id, :type_id)
     end
 end
