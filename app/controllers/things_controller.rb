@@ -27,7 +27,7 @@ class ThingsController < ApplicationController
   # POST /things.json
   def create
     @thing = Thing.new(thing_params)
-    @thing.creator = GlobalID::Locator.locate thing_params[:creator]
+    @thing.creator = GlobalID::Locator.locate thing_params[:creator_id]
 
     respond_to do |format|
       if @thing.save
@@ -43,8 +43,15 @@ class ThingsController < ApplicationController
   # PATCH/PUT /things/1
   # PATCH/PUT /things/1.json
   def update
+    params_for_update = thing_params
+
+    if GlobalID::Locator.locate thing_params[:creator_id]
+      @thing.creator = GlobalID::Locator.locate params_for_update[:creator_id]
+      params_for_update.delete :creator_id
+    end
+
     respond_to do |format|
-      if @thing.update(thing_params)
+      if @thing.update(params_for_update)
         format.html { redirect_to @thing, notice: 'Thing was successfully updated.' }
         format.json { render :show, status: :ok, location: @thing }
       else
@@ -72,6 +79,6 @@ class ThingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def thing_params
-      params.require(:thing).permit(:name, :description, :creator, :type_id)
+      params.require(:thing).permit(:name, :description, :creator_id, :type_id, :piggybak_sellable_attributes)
     end
 end
